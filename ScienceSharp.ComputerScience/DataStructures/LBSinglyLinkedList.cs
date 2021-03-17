@@ -20,13 +20,19 @@ namespace ScienceSharp.ComputerScience.DataStructures
     /// <summary>
     /// Represents a list-backed singly linked list.
     /// </summary>
-    public class LBSinglyLinkedList<T> : ILinkedList<T>
+    public class LbSinglyLinkedList<T> : ILinkedList<T>
     {
         public int Count { get; }
         public ILinkedListNode<T> First { get; }
         public bool IsEmpty { get; }
         public ILinkedListNode<T> Last { get; }
         public Type Type { get; }
+
+        public T this[int i] {
+            get { throw new NotImplementedException(); }
+            set { }
+        }
+
         public ILinkedList<T> AddAfter(ILinkedListNode<T> target, T value)
         {
             throw new NotImplementedException();

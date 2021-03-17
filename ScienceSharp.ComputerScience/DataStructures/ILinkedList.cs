@@ -48,6 +48,13 @@ namespace ScienceSharp.ComputerScience.DataStructures
         public Type Type { get; }
 
         /// <summary>
+        /// Returns the ith node of the <see cref="ILinkedList{T}"/>.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        public T this[int i] { get; set; }
+        
+        /// <summary>
         /// Adds <paramref name="value"/> to the <see cref="ILinkedList{T}"/> after <paramref name="target"/>.
         /// </summary>
         /// <param name="target">The node that should precede <paramref name="value"/> in the modified <see cref="ILinkedList{T}"/>.</param>

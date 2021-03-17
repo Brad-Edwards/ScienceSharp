@@ -23,6 +23,7 @@ namespace ScienceSharp.Tests.ComputerScience
     /// Represents units tests for the <see cref="LinkedListNode{T}"/> class.
     /// </summary>
     [TestFixture]
+    [TestOf(typeof(LinkedListNode<>))]
     public class LinkedListNodeTests
     {
         /// <summary>
@@ -49,6 +50,7 @@ namespace ScienceSharp.Tests.ComputerScience
         /// Tests that the node returns the correct next node value.
         /// </summary>
         [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
         public void NextNodeTest()
         {
             var nextNode = new LinkedListNode<string>();
@@ -62,6 +64,7 @@ namespace ScienceSharp.Tests.ComputerScience
         /// Tests that the node returns the previous next node value.
         /// </summary>
         [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
         public void PreviousNodeTest()
         {
             var previousNode = new LinkedListNode<string>();
@@ -76,6 +79,7 @@ namespace ScienceSharp.Tests.ComputerScience
         /// Tests that the node returns the correct type for its underlying value.
         /// </summary>
         [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
         public void ReturnsRightType()
         {
             var node = new LinkedListNode<string>();
@@ -88,6 +92,7 @@ namespace ScienceSharp.Tests.ComputerScience
         /// Tests that the node returns the correct value.
         /// </summary>
         [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
         public void ReturnsRightValue()
         {
             for (var i = 0; i < 10; i++)

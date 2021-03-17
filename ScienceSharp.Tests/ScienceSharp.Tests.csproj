@@ -18,8 +18,4 @@
     <ProjectReference Include="..\ScienceSharp.Utilities\ScienceSharp.Utilities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ComputerScience\" />
-  </ItemGroup>
-
 </Project>
