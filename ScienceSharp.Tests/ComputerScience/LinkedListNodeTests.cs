@@ -47,11 +47,11 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// Tests that the node returns the correct next node value.
+        /// <see cref="LinkedListNode{T}.Next"/> returns the correct node.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
-        public void NextNodeTest()
+        public void Next_SetNextNode_ReturnsSameNode()
         {
             var nextNode = new LinkedListNode<string>();
             var node = new LinkedListNode<string> {
@@ -61,11 +61,11 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// Tests that the node returns the previous next node value.
+        /// <see cref="LinkedListNode{T}.Previous"/> returns the correct node.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
-        public void PreviousNodeTest()
+        public void Previous_SetPreviousNode_ReturnsSameNode()
         {
             var previousNode = new LinkedListNode<string>();
             var node = new LinkedListNode<string> {
@@ -76,29 +76,29 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// Tests that the node returns the correct type for its underlying value.
+        /// <see cref="LinkedListNode{T}.ValueType"/> returns the correct type for the <see cref="LinkedListNode{T}"/> value.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
-        public void ReturnsRightType()
+        public void Type_Value_ReturnsCorrectTypes()
         {
-            var node = new LinkedListNode<string>();
-            Assert.AreEqual(node.ValueType, typeof(string));
+            var node = new LinkedListNode<object>();
+            Assert.AreEqual(node.ValueType, typeof(object));
             var node2 = new LinkedListNode<int>();
             Assert.AreEqual(node2.ValueType, typeof(int));
         }
 
         /// <summary>
-        /// Tests that the node returns the correct value.
+        /// <see cref="LinkedListNode{T}.Value"/> returns the correct value.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
-        public void ReturnsRightValue()
+        public void Value_Value_ReturnsCorrectValues()
         {
             for (var i = 0; i < 10; i++)
             {
-                var value = _generator.RandomAlphaNumeric(30);
-                var node = new LinkedListNode<string> {
+                var value = new object();
+                var node = new LinkedListNode<object> {
                     Value = value
                 };
                 Assert.AreEqual(node.Value, value);
