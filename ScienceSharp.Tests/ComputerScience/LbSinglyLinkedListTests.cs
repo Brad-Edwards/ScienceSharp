@@ -13,8 +13,10 @@
 // OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.</copyright>
 
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using NUnit.Framework;
 using ScienceSharp.ComputerScience.DataStructures;
 using ScienceSharp.Utilities.Data;
@@ -40,6 +42,42 @@ namespace ScienceSharp.Tests.ComputerScience
         public void SetUp()
         {
             _generator = new ValueGenerator();
+        }
+
+        /// <summary>
+        /// <see cref="LbSinglyLinkedList{T}"/> square-bracket operators return correct values for given positions.
+        /// </summary>
+        [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
+        public void Bracket_Node_ReturnsNodeFromCorrectPosition()
+        {
+            var list = new LbSinglyLinkedList<int>();
+            var first = new LinkedListNode<int>();
+            var second = new LinkedListNode<int>();
+            var third = new LinkedListNode<int>();
+            list.Append(first);
+            list.Append(second);
+            list.Append(third);
+            Assert.AreSame(list[0], first);
+            Assert.AreSame(list[1], second);
+            Assert.AreSame(list[2], third);
+        }
+
+        /// <summary>
+        /// <see cref="LbSinglyLinkedList{T}"/> square-bracket operators throw errors when access is out of bounds.
+        /// </summary>
+        [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
+        public void Bracket_Any_ThrowsExceptionOnOutOfBoundsAccess()
+        {
+            var list = new LbSinglyLinkedList<int>();
+            Assert.Throws(typeof(IndexOutOfRangeException), () => {
+                var x = list[0];});
+            list.Append(new LinkedListNode<int>());
+            list.Append(new LinkedListNode<int>());
+            Assert.Throws(typeof(IndexOutOfRangeException), () => {
+                var x = list[10];
+            });
         }
 
         /// <summary>
