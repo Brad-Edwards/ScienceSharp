@@ -1,4 +1,4 @@
-﻿// <copyright file="Program.cs" company="Brad Edwards">
+﻿// <copyright file="ListEmptyException.cs" company="Brad Edwards">
 // 
 // Copyright (c) 2021 Brad Edwards
 // 
