@@ -49,18 +49,41 @@ namespace ScienceSharp.Tests.ComputerScience
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
-        public void Bracket_Node_ReturnsNodeFromCorrectPosition()
+        public void Bracket_GetValue_ReturnsValueFromCorrectPosition()
         {
             var list = new LbSinglyLinkedList<int>();
-            var first = new LinkedListNode<int>();
-            var second = new LinkedListNode<int>();
-            var third = new LinkedListNode<int>();
+            var first = new LinkedListNode<int>(10);
+            var second = new LinkedListNode<int>(20);
+            var third = new LinkedListNode<int>(30);
             list.Append(first);
             list.Append(second);
             list.Append(third);
-            Assert.AreSame(list[0], first);
-            Assert.AreSame(list[1], second);
-            Assert.AreSame(list[2], third);
+            Assert.AreEqual(list[0], first.Value);
+            Assert.AreEqual(list[1], second.Value);
+            Assert.AreEqual(list[2], third.Value);
+        }
+
+        /// <summary>
+        /// <see cref="LbSinglyLinkedList{T}"/> square-bracket operators set values at index positions correctly.
+        /// </summary>
+        [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
+        public void Bracket_SetValue_SetsValueAtCorrectPosition()
+        {
+            var list = new LbSinglyLinkedList<int>();
+            var value = 42;
+            var first = new LinkedListNode<int>(30);
+            var second = new LinkedListNode<int>(30);
+            var third = new LinkedListNode<int>(30);
+            list.Append(first);
+            list.Append(second);
+            list.Append(third);
+            Assert.AreNotEqual(list[0], value);
+            list[0] = value;
+            Assert.AreEqual(list[0], value);
+            Assert.AreNotEqual(list[2], value);
+            list[2] = value;
+            Assert.AreEqual(list[2], value);
         }
 
         /// <summary>
@@ -102,7 +125,7 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// Tests that <see cref="LbSinglyLinkedList{T}.First"/> accurately returns the first node in the list.
+        /// Tests that <see cref="LbSinglyLinkedList{T}.Head"/> accurately returns the first node in the list.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
@@ -111,14 +134,14 @@ namespace ScienceSharp.Tests.ComputerScience
             var list = new LbSinglyLinkedList<int>();
             var first = new LinkedListNode<int>();
             var second = new LinkedListNode<int>();
-            Assert.IsNull(list.First);
+            Assert.IsNull(list.Head);
             list.Append(first);
             list.Append(second);
-            Assert.AreSame(list.First, first);
+            Assert.AreSame(list.Head, first);
             list.RemoveFirst();
-            Assert.AreSame(list.First, second);
+            Assert.AreSame(list.Head, second);
             list.Clear();
-            Assert.IsNull(list.First);
+            Assert.IsNull(list.Head);
         }
 
         /// <summary>

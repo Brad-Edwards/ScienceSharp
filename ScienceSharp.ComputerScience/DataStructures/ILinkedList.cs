@@ -30,7 +30,7 @@ namespace ScienceSharp.ComputerScience.DataStructures
         /// <summary>
         /// The first node in the <see cref="ILinkedList{T}"/>.
         /// </summary>
-        public ILinkedListNode<T> First { get; }
+        public ILinkedListNode<T> Head { get; }
 
         /// <summary>
         /// Indicates whether the <see cref="ILinkedList{T}"/> is empty.

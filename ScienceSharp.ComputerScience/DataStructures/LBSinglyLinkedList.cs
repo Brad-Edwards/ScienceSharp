@@ -15,6 +15,7 @@
 
 using ScienceSharp.Exceptions;
 using System;
+using System.Net.Http;
 
 namespace ScienceSharp.ComputerScience.DataStructures
 {
@@ -23,15 +24,64 @@ namespace ScienceSharp.ComputerScience.DataStructures
     /// </summary>
     public class LbSinglyLinkedList<T> : ILinkedList<T>
     {
-        public int Count { get; }
-        public ILinkedListNode<T> First { get; }
-        public bool IsEmpty { get; }
-        public ILinkedListNode<T> Last { get; }
-        public Type Type { get; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LbSinglyLinkedList{T}"/> class.
+        /// </summary>
+        public LbSinglyLinkedList() { 
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LbSinglyLinkedList{T}"/> class with a given node at the head.
+        /// </summary>
+        /// <param name="node">The <see cref="ILinkedListNode{T}"/> to place at the head of the new <see cref="LbSinglyLinkedList{T}"/>.</param>
+        public LbSinglyLinkedList(ILinkedListNode<T> node)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LbSinglyLinkedList{T}"/> class with a given value at the head.
+        /// </summary>
+        /// <param name="value">The value to put at the head of the list.</param>
+        public LbSinglyLinkedList(T value)
+        {
+
+        }
+        public int Count { get; private set; }
+        public ILinkedListNode<T> Head { get; private set; }
+        public bool IsEmpty { get; private set; }
+        public ILinkedListNode<T> Last { get; private set; }
+        public Type Type => typeof(T);
 
         public T this[int i] {
-            get { throw new NotImplementedException(); }
-            set { }
+            get {
+                if (i < 0 || i > Count - 1)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                var current = Head;
+                for (var j = 0; j < i; j++)
+                {
+                    current = current.Next;
+                }
+                return current.Value;
+            }
+            set {
+                if (i < 0 || i > Count - 1)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+
+                var current = Head;
+                for (var j = 0; j < i; j++)
+                {
+                    current = current.Next;
+                }
+
+                current.Value = value;
+            }
         }
 
         public ILinkedList<T> AddAfter(ILinkedListNode<T> target, T value)
