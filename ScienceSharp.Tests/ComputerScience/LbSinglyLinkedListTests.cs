@@ -14,6 +14,7 @@
 // DEALINGS IN THE SOFTWARE.</copyright>
 
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -42,6 +43,49 @@ namespace ScienceSharp.Tests.ComputerScience
         public void SetUp()
         {
             _generator = new ValueGenerator();
+        }
+
+        /// <summary>
+        /// <see cref="LbSinglyLinkedList{T}.LbSinglyLinkedList()"/> base constructor returns an empty list.
+        /// </summary>
+        [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
+        public void Constructor_Base_ReturnsHeadlessList()
+        {
+            var list = new LbSinglyLinkedList<int>();
+            Assert.IsNull(list.Head);
+            Assert.AreEqual(list.Count, 0);
+            Assert.True(list.IsEmpty);
+            Assert.Throws(typeof(IndexOutOfRangeException), () => { var x = list[0]; });
+        }
+
+        /// <summary>
+        /// <see cref="LbSinglyLinkedList{T}.LbSinglyLinkedList(ILinkedListNode{T})"/> returns a list with a given node as the head.
+        /// </summary>
+        [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
+        public void Constructor_Node_ReturnsOneNodeList()
+        {
+            var node = new LinkedListNode<int>(30);
+            var list = new LbSinglyLinkedList<int>(node);
+            Assert.AreSame(list.Head, node);
+            Assert.AreEqual(list[0], node.Value);
+            Assert.AreEqual(list.Count, 1);
+            Assert.False(list.IsEmpty);
+        }
+
+        /// <summary>
+        /// <see cref="LbSinglyLinkedList{T}.LbSinglyLinkedList(T)"/> returns a list with a given value at the head.
+        /// </summary>
+        [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
+        public void Constructor_Value_ReturnsOneNodeList()
+        {
+            var value = 30;
+            var list = new LbSinglyLinkedList<int>(value);
+            Assert.AreEqual(list[0], value);
+            Assert.AreEqual(list.Count, 1);
+            Assert.False(list.IsEmpty);
         }
 
         /// <summary>
@@ -190,11 +234,11 @@ namespace ScienceSharp.Tests.ComputerScience
             var list = new LbSinglyLinkedList<int>();
             Assert.AreEqual(list.Type, typeof(int));
             var list2 = new LbSinglyLinkedList<string>();
-            Assert.AreEqual(list.Type, typeof(string));
+            Assert.AreEqual(list2.Type, typeof(string));
         }
 
         /// <summary>
-        /// Tests that the <see cref="LbSinglyLinkedList{T}.AddAfter(ILinkedListNode&lt;T&gt;, T)"/> returns the correct value.
+        /// Tests that the <see cref="LbSinglyLinkedList{T}.AddAfter(ILinkedListNode{T}, T)"/> returns the correct value.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
@@ -226,7 +270,7 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// Test that the <see cref="LbSinglyLinkedList{T}.AddAfter(ILinkedListNode&lt;T&gt;, ILinkedListNode&lt;T&gt;"/> returns the correct node.
+        /// Test that the <see cref="LbSinglyLinkedList{T}.AddAfter(ILinkedListNode{T}, ILinkedListNode{T}"/> returns the correct node.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
@@ -246,7 +290,7 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// <see cref="LbSinglyLinkedList{T}.AddBefore(ILinkedListNode&lt;T&gt;, T)"/> sets value in the correct position.
+        /// <see cref="LbSinglyLinkedList{T}.AddBefore(ILinkedListNode{T}, T)"/> sets value in the correct position.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
@@ -280,7 +324,7 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// <see cref="LbSinglyLinkedList{T}.AddBefore(ILinkedListNode&lt;T&gt;, ILinkedListNode&lt;T&gt;)"/> sets node in correct position.
+        /// <see cref="LbSinglyLinkedList{T}.AddBefore(ILinkedListNode{T}, ILinkedListNode{T})"/> sets node in correct position.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
@@ -325,7 +369,7 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// <see cref="LbSinglyLinkedList{T}.AddFirst(ILinkedListNode&lt;T&gt;)"/> sets first node correctly.
+        /// <see cref="LbSinglyLinkedList{T}.AddFirst(ILinkedListNode{T})"/> sets first node correctly.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
@@ -362,7 +406,7 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// <see cref="LbSinglyLinkedList{T}.Append(ILinkedListNode&lt;T&gt;)"/> adds node to end of list.
+        /// <see cref="LbSinglyLinkedList{T}.Append(ILinkedListNode{T})"/> adds node to end of list.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
@@ -473,7 +517,7 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
-        /// <see cref="LbSinglyLinkedList{T}.Remove(ILinkedListNode&lt;T&gt;)"/> returns true only if the first incidence of a node is removed.
+        /// <see cref="LbSinglyLinkedList{T}.Remove(ILinkedListNode{T})"/> returns true only if the first incidence of a node is removed.
         /// </summary>
         [Test]
         [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]

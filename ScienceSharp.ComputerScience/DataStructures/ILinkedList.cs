@@ -48,7 +48,7 @@ namespace ScienceSharp.ComputerScience.DataStructures
         public Type Type { get; }
 
         /// <summary>
-        /// Returns the ith node of the <see cref="ILinkedList{T}"/>.
+        /// Returns the value of the ith node of the <see cref="ILinkedList{T}"/>.
         /// </summary>
         /// <param name="i"></param>
         /// <returns></returns>
