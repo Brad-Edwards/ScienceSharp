@@ -17,9 +17,11 @@ using ScienceSharp.Exceptions;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Transactions;
 
 namespace ScienceSharp.ComputerScience.DataStructures
@@ -133,12 +135,55 @@ namespace ScienceSharp.ComputerScience.DataStructures
 
         public ILinkedList<T> AddAfter(ILinkedListNode<T> target, T value)
         {
-            throw new NotImplementedException();
+            _ = target ?? throw new ArgumentNullException(nameof(target), "The node to precede the new value cannot be null.");
+
+            try
+            {
+                // target node has to be in the list to do the add
+                if (!Seek(target).Contains(target))
+                    throw new ArgumentException(
+                        "The target node provided is not in the list so a value cannot be added after it.",
+                        nameof(target));
+                var newNode = new LinkedListNode<T>(value) { Next = target.Next };
+                if (target == Last)
+                {
+                    Last = newNode;
+                }
+                target.Next = newNode;
+                Count++;
+                return this;
+            }
+            catch (ListEmptyException ex)
+            {
+                throw new ListEmptyException("List was empty, could not add value after node.", ex);
+            }
         }
 
         public ILinkedList<T> AddAfter(ILinkedListNode<T> target, ILinkedListNode<T> node)
         {
-            throw new NotImplementedException();
+            _ = target ?? throw new ArgumentNullException(nameof(target), "The node to precede the new value cannot be null.");
+            _ = node ??  throw new ArgumentNullException(nameof(node), "The node to add to the list cannot be null.");
+
+            try
+            {
+                // target node has to be in the list to do the add
+                if (!Seek(target).Contains(target))
+                    throw new ArgumentException(
+                        "The target node provided is not in the list so a value cannot be added after it.",
+                        nameof(target));
+                node.Next = target.Next;
+                if (target == Last)
+                {
+                    Last = node;
+                }
+                target.Next = node;
+                Count++;
+                return this;
+            }
+            catch (ListEmptyException ex)
+            {
+                throw new ListEmptyException("List was empty, could not add value after node.", ex);
+            }
         }
 
         public ILinkedList<T> AddBefore(ILinkedListNode<T> target, T value)
@@ -238,6 +283,22 @@ namespace ScienceSharp.ComputerScience.DataStructures
             return Last;
         }
 
+        public ILinkedListNode<T> NodeAt(int i)
+        {
+            if (IsEmpty)
+            {
+                throw new IndexOutOfRangeException("Cannot find a node in an empty list.");
+            }
+
+            if (i < 0 || i > Count - 1)
+            {
+                throw new IndexOutOfRangeException(
+                    "Cannot find a node at an index lower than 0 or out of range of the list.");
+            }
+
+            return Seek(i);
+        }
+
         public bool Remove(T value)
         {
             throw new NotImplementedException();
@@ -302,17 +363,9 @@ namespace ScienceSharp.ComputerScience.DataStructures
         private ILinkedListNode<T> Seek(int index)
         {
             // Can't seek in an empty list
-            if (Head == null)
+            if (IsEmpty)
             {
                 throw new IndexOutOfRangeException("Cannot seek in an empty list.");
-            }
-            
-            // Convert reverse index into standard index.
-            // Since list is 0 indexed, the standard -1 for last element is just Count - 1
-            // Add, since index is negative
-            if (index < 0)
-            {
-                index += Count;
             }
             
             // Index has to be in range.
@@ -321,20 +374,20 @@ namespace ScienceSharp.ComputerScience.DataStructures
                 throw new IndexOutOfRangeException($"Your index is out of range. List node count: {Count}. Index: {index}");
             }
 
-            if (index == 0)
+            var current = Head;
+            while (current.Next != null)
             {
-                return Head;
+                current = current.Next;
             }
 
-            var current = Head;
-            // When index is 0, we have found the node.
-            while (index > 0)
+            current = Head;
+            var i = 0;
+            // If index is 0 or we already hit the right index, move on
+            while (index != 0 && i != index)
             {
-                // Should never hit this if guards above work, but still.
-                _ = current.Next ?? throw new IndexOutOfRangeException($"Your index is out of range. List node count: {Count}");
-
                 current = current.Next;
-                index--;
+                
+                i++;
             }
 
             return current;
@@ -342,6 +395,11 @@ namespace ScienceSharp.ComputerScience.DataStructures
 
         private ILinkedListNode<T>[] Seek(ILinkedListNode<T> targetNode)
         {
+            if (IsEmpty)
+            {
+                throw new ListEmptyException("Cannot see in an empty list.");
+            }
+
             var results = new ILinkedListNode<T>[2];
             if (Head is null)
             {

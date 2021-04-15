@@ -16,7 +16,7 @@
 using System;
 
 namespace ScienceSharp.ComputerScience.DataStructures
-{
+{ // TODO: Add throws comments to each method
     /// <summary>
     /// Defines methods for manipulating a linked list.
     /// </summary>
@@ -116,7 +116,7 @@ namespace ScienceSharp.ComputerScience.DataStructures
         public ILinkedList<T> Append(ILinkedListNode<T> node);
 
         /// <summary>
-        /// Removes all nodes from the <see cref="ILinkedList{T}"/>.
+        /// Empties the <see cref="LbSinglyLinkedList{T}"/>.
         /// </summary>
         public void Clear();
 
@@ -128,21 +128,28 @@ namespace ScienceSharp.ComputerScience.DataStructures
         public bool Contains(T value);
 
         /// <summary>
-        /// Finds the first node that contains <paramref name="value"/>.
+        /// Finds the first <see cref="ILinkedListNode{T}"/> that contains <paramref name="value"/>.
         /// </summary>
         /// <param name="value">The value to locate in the <see cref="ILinkedList{T}"/>.</param>
-        /// <returns><see cref="ILinkedListNode{T}"/><para>The first <see cref="ILinkedListNode{T}"/> that contains <paramref name="value"/>, or <value>null</value> if <paramref name="value"/> could not be found.</returns></para>
+        /// <returns><see cref="ILinkedListNode{T}"/><para>The first <see cref="ILinkedListNode{T}"/> that contains <paramref name="value"/>, or <value>null</value> if <paramref name="value"/> could not be found.</para></returns>
         public ILinkedListNode<T> Find(T value);
 
         /// <summary>
-        /// Finds the last node that contains <paramref name="value"/>.
+        /// Finds the last <see cref="ILinkedListNode{T}"/> that contains <paramref name="value"/>.
         /// </summary>
         /// <param name="value">The value to locate in the <see cref="ILinkedList{T}"/>.</param>
-        /// <returns><see cref="ILinkedListNode{T}"/><br/><hpara>The last node that contains <paramref name="value"/>, or <value>null</value> if <paramref name="value"/> could not be found.</para></returns>
+        /// <returns><see cref="ILinkedListNode{T}"/><br/><para>The last node that contains <paramref name="value"/>, or <value>null</value> if <paramref name="value"/> could not be found.</para></returns>
         public ILinkedListNode<T> FindLast(T value);
 
         /// <summary>
-        /// Removes the first node containing <paramref name="value"/> from the <see cref="ILinkedList{T}"/>.
+        /// Finds the <see cref="ILinkedListNode{T}"/> in the <see cref="LbSinglyLinkedList{T}"/> at <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="ILinkedListNode{T}"/> to find.</param>
+        /// <returns><see cref="ILinkedListNode{T}"/><para>The <see cref="ILinkedListNode{T}"/> at <paramref name="index"/></para></returns>
+        public ILinkedListNode<T> NodeAt(int index);
+
+        /// <summary>
+        /// Removes the first <see cref="ILinkedListNode{T}"/> containing <paramref name="value"/> from the <see cref="ILinkedList{T}"/>.
         /// </summary>
         /// <param name="value">The value to remove from the <see cref="ILinkedList{T}"/></param>
         /// <returns><see cref="bool"/><para><value>true</value> if <paramref name="value"/> was found and removed, otherwise <value>false</value>.</para></returns>

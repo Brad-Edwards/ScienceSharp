@@ -23,7 +23,8 @@ using ScienceSharp.ComputerScience.DataStructures;
 using ScienceSharp.Utilities.Data;
 
 namespace ScienceSharp.Tests.ComputerScience
-{
+{ // TODO: Add checks for proper errors thrown
+    // TODO: Add tests for NodeAt(int index)
     /// <summary>
     /// Represents tests for the <see cref="LbSinglyLinkedList{T}"/> class.
     /// </summary>
@@ -255,6 +256,10 @@ namespace ScienceSharp.Tests.ComputerScience
             list.Append(third);
             list.AddAfter(third, value);
             Assert.AreEqual(list[3], value);
+            list.AddFirst(fourth);
+            Assert.AreNotEqual(list[1], value);
+            list.AddAfter(fourth, value);
+            Assert.AreEqual(list[1], value);
 
             var list2 = new LbSinglyLinkedList<object>();
             var first2 = new LinkedListNode<object>();
@@ -266,7 +271,11 @@ namespace ScienceSharp.Tests.ComputerScience
             Assert.AreSame(list2[1], value2);
             list2.Append(third2);
             list2.AddAfter(third2, value2);
-            Assert.AreSame(list[3], value2);
+            Assert.AreSame(list2[3], value2);
+            list2.AddFirst(fourth2);
+            Assert.AreNotSame(list2[1], value2);
+            list2.AddAfter(fourth2, value2);
+            Assert.AreSame(list2[1], value2);
         }
 
         /// <summary>
@@ -277,16 +286,30 @@ namespace ScienceSharp.Tests.ComputerScience
         public void AddAfter_AddNode_AddsNodeAfterNode()
         {
             var list = new LbSinglyLinkedList<int>();
-            var first = new LinkedListNode<int>();
-            var second = new LinkedListNode<int>();
-            var third = new LinkedListNode<int>();
-            var fourth = new LinkedListNode<int>();
+            var first = new LinkedListNode<int>(1);
+            var second = new LinkedListNode<int>(2);
+            var third = new LinkedListNode<int>(3);
+            var fourth = new LinkedListNode<int>(4);
             list.Append(first);
             list.Append(third);
             list.AddAfter(first, second);
-            Assert.AreSame(list[1], second);
+            Assert.AreSame(list.NodeAt(1), second);
             list.AddAfter(third, fourth);
-            Assert.AreSame(list[3], fourth);
+            Assert.AreSame(list.NodeAt(3), fourth);
+            // TODO: add logic or at least comments to deal with circularities/breakages from re-adding same nodes in different places
+
+            var list2 = new LbSinglyLinkedList<object>();
+            var first2 = new LinkedListNode<object>();
+            var second2 = new LinkedListNode<object>();
+            var third2 = new LinkedListNode<object>();
+            var fourth2 = new LinkedListNode<object>();
+            list2.Append(first2);
+            list2.Append(third2);
+            list2.AddAfter(first2, second2);
+            Assert.AreSame(list2.NodeAt(1), second2);
+            list2.AddAfter(third2, fourth2);
+            Assert.AreSame(list2.NodeAt(3), fourth2);
+
         }
 
         /// <summary>
