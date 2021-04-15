@@ -128,6 +128,13 @@ namespace ScienceSharp.ComputerScience.DataStructures
         public bool Contains(T value);
 
         /// <summary>
+        /// Finds <paramref name="node"/> if it is in the <see cref="ILinkedList{T}"/>.
+        /// </summary>
+        /// <param name="node">The node to find in the list.</param>
+        /// <returns><see cref="ILinkedListNode{T}"/><para>The <see cref="ILinkedListNode{T}"/> being sought if it is in the <see cref="ILinkedList{T}"/>, or <value>null</value> if <paramref name="node"/> could not be found.</para></returns>
+        public ILinkedListNode<T> Find(ILinkedListNode<T> node);
+
+        /// <summary>
         /// Finds the first <see cref="ILinkedListNode{T}"/> that contains <paramref name="value"/>.
         /// </summary>
         /// <param name="value">The value to locate in the <see cref="ILinkedList{T}"/>.</param>

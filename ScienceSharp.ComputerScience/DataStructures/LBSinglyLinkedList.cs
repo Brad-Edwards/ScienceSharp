@@ -273,9 +273,14 @@ namespace ScienceSharp.ComputerScience.DataStructures
             return true;
         }
 
+        public ILinkedListNode<T> Find(ILinkedListNode<T> node)
+        {
+            return Seek(node)[1];
+        }
+
         public ILinkedListNode<T> Find(T value)
         {
-            throw new NotImplementedException();
+            return Seek(value);
         }
 
         public ILinkedListNode<T> FindLast(T value)
@@ -367,20 +372,21 @@ namespace ScienceSharp.ComputerScience.DataStructures
             {
                 throw new IndexOutOfRangeException("Cannot seek in an empty list.");
             }
-            
-            // Index has to be in range.
-            if (index < 0 || index > Count - 1)
+
+            // Index cannot be out of range forwards or backwards
+            if (index > Count - 1 || index + Count < 0)
             {
                 throw new IndexOutOfRangeException($"Your index is out of range. List node count: {Count}. Index: {index}");
             }
 
-            var current = Head;
-            while (current.Next != null)
+            // Regularize negative indexing
+            if (index < 0)
             {
-                current = current.Next;
+                index += Count;
             }
 
-            current = Head;
+            // Go find the node
+            var current = Head;
             var i = 0;
             // If index is 0 or we already hit the right index, move on
             while (index != 0 && i != index)
@@ -389,10 +395,16 @@ namespace ScienceSharp.ComputerScience.DataStructures
                 
                 i++;
             }
-
             return current;
         }
 
+        /// <summary>
+        /// Finds <paramref name="targetNode"/> if it is in the <see cref="LbSinglyLinkedList{T}"/>.
+        /// </summary>
+        /// <param name="targetNode">The node to find.</param>
+        /// <returns>
+        /// <see cref="ILinkedListNode{T}"/>[]<para>Returns an array of <see cref="ILinkedListNode{T}"/> of length 2. The first value of the array will be the <see cref="ILinkedListNode{T}"/> that precedes the <paramref name="targetNode"/> in the
+        /// <see cref="LbSinglyLinkedList{T}"/> if <paramref name="targetNode"/> is in the <see cref="LbSinglyLinkedList{T}"/>. It will be <value>null</value> if <paramref name="targetNode"/> was the Head or was not found. The second value of the array will be <paramref name="targetNode"/> if it was found, or <value>null</value>.</para></returns>
         private ILinkedListNode<T>[] Seek(ILinkedListNode<T> targetNode)
         {
             if (IsEmpty)
@@ -426,18 +438,34 @@ namespace ScienceSharp.ComputerScience.DataStructures
                 prev = current;
                 current = prev.Next;
             }
-
             return results;
         }
 
         /// <summary>
         /// Finds the first <see cref="ILinkedListNode{T}"/> containing 
         /// </summary>
-        /// <param name="targetValue"></param>
+        /// <param name="targetValue">The target value to find.</param>
         /// <returns></returns>
         private ILinkedListNode<T> Seek(T targetValue)
         {
-            throw new NotImplementedException();
+            _ = Head ?? throw new ListEmptyException("Cannot seek into an empty list.");
+           
+            if (Head.Value.Equals(targetValue))
+            {
+                return Head;
+            }
+
+            var current = Head;
+            while (current.Next != null)
+            {
+                current = current.Next;
+                if (current.Value.Equals(targetValue))
+                {
+                    return current;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -480,6 +480,24 @@ namespace ScienceSharp.Tests.ComputerScience
         }
 
         /// <summary>
+        /// <see cref="LbSinglyLinkedList{T}.Find/> returns <see cref="ILinkedListNode{T}"/> only if it is in the list, otherwise null.
+        /// </summary>
+        [Test]
+        [Author("Brad Edwards", "j.bradley.edwards@gmail.com")]
+        public void Find_Node_ReturnsNodeOnlyWhenListContainsNode()
+        {
+            var node = new LinkedListNode<int>(40);
+            var dummyNode1 = new LinkedListNode<int>(1);
+            var dummyNode2 = new LinkedListNode<int>(2);
+            var list = new LbSinglyLinkedList<int>();
+            list.Append(dummyNode1);
+            list.Append(dummyNode2);
+            Assert.Null(list.Find(node));
+            list.Append(node);
+            Assert.AreSame(list.Find(node), node);
+        }
+
+        /// <summary>
         /// <see cref="LbSinglyLinkedList{T}.Find"/> returns <see cref="ILinkedListNode{T}"/> with correct value only when value is in list, otherwise it returns null.
         /// </summary>
         [Test]
@@ -493,8 +511,6 @@ namespace ScienceSharp.Tests.ComputerScience
             Assert.Null(list.Find(value));
             list.Append(value);
             Assert.AreEqual(list.Find(value).Value, value);
-            list.Append(value);
-            Assert.AreSame(list.Find(value), list[1]);
         }
 
         /// <summary>
